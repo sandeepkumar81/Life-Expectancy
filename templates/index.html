@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html >
+<head>
+  <meta charset="UTF-8">
+  <title>ML API</title>
+  <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Hind:300' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+  
+</head>
+
+<body style="background: #000;">
+ <div class="login">
+	<h1>Life Expectancy</h1>
+
+     <!-- Main Input For Receiving Query to our ML -->
+    <form action="{{ url_for('predict')}}"method="post">
+    	<input type="text" name="AdultMortality" placeholder="Adult Mortality (per 1000)" required="required" />
+        <input type="text" name="Alcohol" placeholder="Alcohol (in litres)" required="required" />
+	<input type="text" name="HepatitisB" placeholder="HepatitisB (in %)" required="required" />
+	<input type="text" name="Measles" placeholder="Measles (per 1000)" required="required" />
+	<input type="text" name="BMI" placeholder="BMI" required="required" />        
+	<input type="text" name="under-fivedeaths" placeholder="Under-five deaths (per 1000)" required="required" />
+	<input type="text" name="Polio" placeholder="Polio (in %)" required="required" />
+	<input type="text" name="Totalexpenditure" placeholder="Total Expenditure of govt (in %)" required="required" />
+	<input type="text" name="Diphtheria" placeholder="Diphtheria (in %)" required="required" />
+	<input type="text" name="HIV/AIDS" placeholder="HIV/AIDS (per 1000 births)" required="required" />
+	<input type="text" name="GDP" placeholder="GDP (in USD)" required="required" />
+	<input type="text" name="Population" placeholder="Population of country" required="required" />
+	<input type="text" name="Incomecompositionofresource" placeholder="Income Composition (HDI)" required="required" />
+	<input type="text" name="Schooling" placeholder="Schooling (in years)" required="required" />
+
+
+	<button type="submit" class="btn btn-primary btn-block btn-large">Predict Life expectancy</button>
+    </form>
+
+   <br>
+   <br>
+   {{ prediction_text }}
+
+ </div>
+</body>
+</html>
