@@ -20,28 +20,23 @@ def home():
 
 @app.route('/predict', methods=['POST'])
 def predict():
-    if request.method == 'POST':
-        AdultMortality = float(request.form['AdultMortality'])
-        Alcohol = float(request.form['Alcohol'])
-        HepatitisB = float(request.form['HepatitisB'])
-        Measles = int(request.form['Measles'])
-        BMI = float(request.form['BMI'])
-        under_fivedeaths = int(request.form['under-fivedeaths'])
-        Polio = float(request.form['Polio'])
-        Totalexpenditure = float(request.form['Totalexpenditure'])
-        Diphtheria = float(request.form['Diphtheria'])
-        HIV_AIDS = float(request.form['HIV/AIDS'])
-        GDP = float(request.form['GDP'])
-        Population = float(request.form['Population'])
-        Incomecompositionofresources = float(request.form['Incomecompositionofresources'])
-        Schooling = float(request.form['Schooling'])
-        
-        data = np.array([[AdultMortality, Alcohol, HepatitisB, Measles, BMI,under-fivedeaths,Polio,Totalexpenditure,Diphtheria,
-                          HIV/AIDS,GDP,Population,Incomecompositionofresources,Schooling]])
-        my_prediction = xgb.predict(data)
-        
-        return render_template('result.html', prediction=my_prediction)
+    int_features = [int(x) for x in request.form.values()]
+    final_features = [np.array(int_features)]
+    prediction = model.predict(final_features)
 
-if __name__ == '__main__':
-	app.run(debug=True)
+    output = round(prediction, 2)
+
+    return render_template('index.html', prediction_text='Life Expectancy is {}'.format(output))
+
+@app.route('/results',methods=['POST'])
+def results():
+
+    data = request.get_json(force=True)
+    prediction = model.predict([np.array(list(data.values()))])
+
+    output = prediction
+    return jsonify(output)
+
+if __name__ == "__main__":
+    app.run(debug=True)
 
